@@ -3,10 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Para Max</title>
-
-  <!-- Fuente Merienda -->
   <link href="https://fonts.googleapis.com/css2?family=Merienda&display=swap" rel="stylesheet">
-
   <style>
     body {
       margin: 0;
@@ -14,7 +11,7 @@
       background: #0d001d;
       overflow: hidden;
       font-family: 'Merienda', cursive;
-      cursor: crosshair;
+      cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"><text x="6" y="21" font-size="20" fill="red">❤️</text></svg>') 16 16, crosshair;
     }
 
     .sparkle {
@@ -25,16 +22,36 @@
       border-radius: 50%;
       animation: twinkle 2s infinite;
       opacity: 0.7;
-      transition: background 0.2s;
+      transition: all 0.3s ease;
+      font-size: 0px;
+      text-align: center;
+      line-height: 1;
     }
 
-    .sparkle.red {
-      background: red !important;
+    .sparkle.heart {
+      width: auto;
+      height: auto;
+      background: none;
+      font-size: 14px;
+      opacity: 1;
+      color: red;
+    }
+
+    .sparkle.chispa::after {
+      content: '✨';
+      font-size: 10px;
+      position: absolute;
+      top: -10px;
+      left: -6px;
+      opacity: 0.6;
     }
 
     @keyframes twinkle {
-      0%, 100% { opacity: 0.2; transform: scale(1); }
+      0% { opacity: 0.2; transform: scale(1); }
+      25% { opacity: 0.5; transform: scale(1.3); }
       50% { opacity: 1; transform: scale(1.5); }
+      75% { opacity: 0.5; transform: scale(1.3); }
+      100% { opacity: 0.2; transform: scale(1); }
     }
 
     .flip-card {
@@ -45,8 +62,6 @@
       margin: auto;
       position: relative;
       z-index: 1;
-      box-shadow: 0 0 30px 10px rgba(255, 255, 255, 0.2);
-      border-radius: 20px;
     }
 
     .flip-card-inner {
@@ -57,6 +72,7 @@
       transition: transform 2s ease-in-out;
       transform-style: preserve-3d;
       border-radius: 20px;
+      box-shadow: 0 0 30px 10px rgba(255, 255, 255, 0.2);
     }
 
     .flip-card:hover .flip-card-inner {
@@ -188,39 +204,36 @@ Te amo siempre, copiloto de mi corazón.</p>
     Tu navegador no soporta audio.
   </audio>
 
-  <!-- Botón voz -->
+  <!-- Botones -->
   <div class="voz-container">
     <div class="voz-text">haz click<br>primero aquí</div>
     <button class="voz-btn" onclick="activarVoz()">❤️</button>
   </div>
 
-  <!-- Botón música -->
   <div class="corazon-container">
     <div class="corazon-text">y después<br>aquí</div>
-    <button id="playMusic" class="corazon-btn" onclick="activarMusica()">❤️</button>
+    <button class="corazon-btn" onclick="activarMusica()">❤️</button>
   </div>
 
   <!-- Scripts -->
   <script>
     function activarVoz() {
-      const voz = document.getElementById("vozAudio");
-      voz.play();
+      document.getElementById("vozAudio").play();
     }
 
     function activarMusica() {
-      const musica = document.getElementById("musicaAudio");
-      musica.play();
+      document.getElementById("musicaAudio").play();
     }
 
-    // Sparkles interactivos
     const sparkleContainer = document.getElementById("sparkle-container");
     const sparkles = [];
 
-    for (let i = 0; i < 120; i++) {
+    for (let i = 0; i < 300; i++) {
       const sparkle = document.createElement("div");
       sparkle.className = "sparkle";
       sparkle.style.top = Math.random() * 100 + "vh";
       sparkle.style.left = Math.random() * 100 + "vw";
+      sparkle.style.animationDelay = (Math.random() * 2) + 's';
       sparkleContainer.appendChild(sparkle);
       sparkles.push(sparkle);
     }
@@ -231,10 +244,13 @@ Te amo siempre, copiloto de mi corazón.</p>
         const dx = e.clientX - (rect.left + 1);
         const dy = e.clientY - (rect.top + 1);
         const distance = Math.sqrt(dx * dx + dy * dy);
-        if (distance < 30) {
-          sparkle.classList.add("red");
-        } else {
-          sparkle.classList.remove("red");
+        if (distance < 30 && !sparkle.classList.contains("heart")) {
+          sparkle.innerHTML = "❤️";
+          sparkle.classList.add("heart", "chispa");
+          setTimeout(() => {
+            sparkle.classList.remove("heart", "chispa");
+            sparkle.innerHTML = "";
+          }, 500);
         }
       });
     });
