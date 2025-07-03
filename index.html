@@ -81,35 +81,41 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      font-size: 1rem;
+      font-size: 0.9rem;
       white-space: pre-wrap;
     }
 
-    .corazon-container {
+    .corazon-container, .voz-container {
       position: fixed;
       bottom: 30px;
-      right: 30px;
       text-align: center;
       z-index: 1000;
     }
 
-    .corazon-text {
+    .corazon-container {
+      right: 30px;
+    }
+
+    .voz-container {
+      left: 30px;
+    }
+
+    .corazon-text, .voz-text {
       color: #b266ff;
-      font-size: 16px;
+      font-size: 14px;
       margin-bottom: 5px;
-      transform: rotate(-10deg);
       animation: flotar 3s ease-in-out infinite;
     }
 
     @keyframes flotar {
-      0%, 100% { transform: translateY(0) rotate(-10deg); }
-      50% { transform: translateY(-6px) rotate(-10deg); }
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
     }
 
-    .corazon-btn {
+    .corazon-btn, .voz-btn {
       background: transparent;
       color: #b266ff;
-      font-size: 32px;
+      font-size: 28px;
       border: 2px solid #b266ff;
       border-radius: 50%;
       padding: 10px 12px;
@@ -123,14 +129,14 @@
       50% { transform: scale(1.2); }
     }
 
-    .corazon-btn:hover {
+    .corazon-btn:hover, .voz-btn:hover {
       background-color: rgba(178, 102, 255, 0.1);
     }
   </style>
 </head>
 
 <body>
-  <!-- Sparkles -->
+  <!-- Sparkles container -->
   <div id="sparkle-container"></div>
 
   <!-- Flipcard -->
@@ -161,26 +167,42 @@ Feliz cumpleaños Max, eres el mejor para crear el futuro y agradezco poder esta
     </div>
   </div>
 
-  <!-- Audio -->
-  <audio id="musica" loop>
-    <source src="cancion.mp3" type="audio/mpeg">
-    Your browser does not support the audio element.
+  <!-- Audios -->
+  <audio id="vozAudio">
+    <source src="voz.mp4" type="audio/mpeg">
+    Tu navegador no soporta audio.
   </audio>
 
-  <!-- Botón de corazón -->
+  <audio id="musicaAudio" loop>
+    <source src="cancion.mp3" type="audio/mpeg">
+    Tu navegador no soporta audio.
+  </audio>
+
+  <!-- Botón voz -->
+  <div class="voz-container">
+    <div class="voz-text">haz click<br>primero aquí</div>
+    <button class="voz-btn" onclick="activarVoz()">❤️</button>
+  </div>
+
+  <!-- Botón música -->
   <div class="corazon-container">
-    <div class="corazon-text">hazme click</div>
+    <div class="corazon-text">y después<br>aquí</div>
     <button id="playMusic" class="corazon-btn" onclick="activarMusica()">❤️</button>
   </div>
 
-  <!-- Script -->
+  <!-- Scripts -->
   <script>
-    function activarMusica() {
-      const audio = document.getElementById("musica");
-      audio.play();
+    function activarVoz() {
+      const voz = document.getElementById("vozAudio");
+      voz.play();
     }
 
-    // Sparkles
+    function activarMusica() {
+      const musica = document.getElementById("musicaAudio");
+      musica.play();
+    }
+
+    // Sparkles generator
     const sparkleContainer = document.getElementById("sparkle-container");
     for (let i = 0; i < 120; i++) {
       const sparkle = document.createElement("div");
