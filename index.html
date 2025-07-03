@@ -105,9 +105,18 @@
       padding: 0;
     }
 
-    .flip-card-back p {
-      padding: 40px 40px;
+    .contenido-carta {
+      padding: 40px 35px;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .contenido-carta p {
       margin: 0;
+      text-align: center;
     }
 
     .corazon-container, .voz-container {
@@ -139,14 +148,13 @@
 
     .corazon-btn, .voz-btn {
       background: transparent;
-      color: #b266ff;
+      border: none;
       font-size: 28px;
-      border: 2px solid #b266ff;
-      border-radius: 50%;
-      padding: 10px 12px;
+      color: #ff3333;
       cursor: pointer;
       animation: heartbeat 1.5s infinite;
       transition: transform 0.2s ease;
+      padding: 0;
     }
 
     @keyframes heartbeat {
@@ -155,7 +163,7 @@
     }
 
     .corazon-btn:hover, .voz-btn:hover {
-      background-color: rgba(178, 102, 255, 0.1);
+      transform: scale(1.3);
     }
   </style>
 </head>
@@ -168,7 +176,8 @@
         <img src="front.png" alt="Max">
       </div>
       <div class="flip-card-back">
-        <p>No sé si el mundo está listo para lo que harás,
+        <div class="contenido-carta">
+          <p>No sé si el mundo está listo para lo que harás,
 pero yo sí lo estoy.
 
 Cada idea tuya es un universo,
@@ -185,7 +194,8 @@ un artista del alma,
 y mi persona favorita.
 
 Feliz cumpleaños Max, eres el mejor para crear el futuro y agradezco poder estar tan cerca de la persona que estás creando contigo mismo.
-Te amo siempre, tripulante de las más increíbles aventuras y copiloto de mi corazón.</p>
+Te amo siempre, copiloto de mi corazón.</p>
+        </div>
       </div>
     </div>
   </div>
@@ -201,12 +211,12 @@ Te amo siempre, tripulante de las más increíbles aventuras y copiloto de mi co
   <!-- Botones -->
   <div class="voz-container">
     <div class="voz-text">haz click<br>primero aquí</div>
-    <button class="voz-btn" onclick="activarVoz()">❤️</button>
+    <button class="voz-btn" onclick="activarVoz()">♥</button>
   </div>
 
   <div class="corazon-container">
     <div class="corazon-text">y después<br>aquí</div>
-    <button class="corazon-btn" onclick="activarMusica()">❤️</button>
+    <button class="corazon-btn" onclick="activarMusica()">♥</button>
   </div>
 
   <!-- Script -->
