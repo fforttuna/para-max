@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <title>Para Max</title>
 
-  <!-- 🖋️ Fuente Merienda -->
+  <!-- Fuente Merienda -->
   <link href="https://fonts.googleapis.com/css2?family=Merienda&display=swap" rel="stylesheet">
 
   <style>
@@ -12,10 +12,23 @@
       margin: 0;
       height: 100vh;
       background: #0d001d;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      overflow: hidden;
       font-family: 'Merienda', cursive;
+    }
+
+    .sparkle {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: white;
+      border-radius: 50%;
+      animation: twinkle 2s infinite;
+      opacity: 0.7;
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.2; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.5); }
     }
 
     .flip-card {
@@ -23,6 +36,9 @@
       width: 360px;
       height: 540px;
       perspective: 1000px;
+      margin: auto;
+      position: relative;
+      z-index: 1;
     }
 
     .flip-card-inner {
@@ -30,7 +46,7 @@
       width: 100%;
       height: 100%;
       text-align: center;
-      transition: transform 1s;
+      transition: transform 2s ease-in-out;
       transform-style: preserve-3d;
     }
 
@@ -69,11 +85,28 @@
       white-space: pre-wrap;
     }
 
-    /* 💜 BOTÓN CORAZÓN */
-    .corazon-btn {
+    .corazon-container {
       position: fixed;
       bottom: 30px;
       right: 30px;
+      text-align: center;
+      z-index: 1000;
+    }
+
+    .corazon-text {
+      color: #b266ff;
+      font-size: 16px;
+      margin-bottom: 5px;
+      transform: rotate(-10deg);
+      animation: flotar 3s ease-in-out infinite;
+    }
+
+    @keyframes flotar {
+      0%, 100% { transform: translateY(0) rotate(-10deg); }
+      50% { transform: translateY(-6px) rotate(-10deg); }
+    }
+
+    .corazon-btn {
       background: transparent;
       color: #b266ff;
       font-size: 32px;
@@ -81,18 +114,26 @@
       border-radius: 50%;
       padding: 10px 12px;
       cursor: pointer;
+      animation: heartbeat 1.5s infinite;
       transition: transform 0.2s ease;
-      z-index: 1000;
+    }
+
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.2); }
     }
 
     .corazon-btn:hover {
-      transform: scale(1.1);
       background-color: rgba(178, 102, 255, 0.1);
     }
   </style>
 </head>
 
 <body>
+  <!-- Sparkles -->
+  <div id="sparkle-container"></div>
+
+  <!-- Flipcard -->
   <div class="flip-card">
     <div class="flip-card-inner">
       <div class="flip-card-front">
@@ -120,22 +161,33 @@ Feliz cumpleaños Max, eres el mejor para crear el futuro y agradezco poder esta
     </div>
   </div>
 
-  <!-- 🎵 AUDIO -->
+  <!-- Audio -->
   <audio id="musica" loop>
     <source src="cancion.mp3" type="audio/mpeg">
     Your browser does not support the audio element.
   </audio>
 
-  <!-- 💜 BOTÓN DE CORAZÓN -->
-  <button id="playMusic" class="corazon-btn" onclick="activarMusica()">❤️</button>
+  <!-- Botón de corazón -->
+  <div class="corazon-container">
+    <div class="corazon-text">hazme click</div>
+    <button id="playMusic" class="corazon-btn" onclick="activarMusica()">❤️</button>
+  </div>
 
-  <!-- 🧠 SCRIPT -->
+  <!-- Script -->
   <script>
     function activarMusica() {
       const audio = document.getElementById("musica");
-      const btn = document.getElementById("playMusic");
       audio.play();
-      btn.style.display = "none"; // Oculta el botón tras hacer clic
+    }
+
+    // Sparkles
+    const sparkleContainer = document.getElementById("sparkle-container");
+    for (let i = 0; i < 120; i++) {
+      const sparkle = document.createElement("div");
+      sparkle.className = "sparkle";
+      sparkle.style.top = Math.random() * 100 + "vh";
+      sparkle.style.left = Math.random() * 100 + "vw";
+      sparkleContainer.appendChild(sparkle);
     }
   </script>
 </body>
