@@ -14,6 +14,7 @@
       background: #0d001d;
       overflow: hidden;
       font-family: 'Merienda', cursive;
+      cursor: crosshair;
     }
 
     .sparkle {
@@ -24,6 +25,11 @@
       border-radius: 50%;
       animation: twinkle 2s infinite;
       opacity: 0.7;
+      transition: background 0.2s;
+    }
+
+    .sparkle.red {
+      background: red !important;
     }
 
     @keyframes twinkle {
@@ -39,6 +45,8 @@
       margin: auto;
       position: relative;
       z-index: 1;
+      box-shadow: 0 0 30px 10px rgba(255, 255, 255, 0.2);
+      border-radius: 20px;
     }
 
     .flip-card-inner {
@@ -48,6 +56,7 @@
       text-align: center;
       transition: transform 2s ease-in-out;
       transform-style: preserve-3d;
+      border-radius: 20px;
     }
 
     .flip-card:hover .flip-card-inner {
@@ -136,7 +145,7 @@
 </head>
 
 <body>
-  <!-- Sparkles container -->
+  <!-- Sparkles -->
   <div id="sparkle-container"></div>
 
   <!-- Flipcard -->
@@ -162,14 +171,15 @@ un inventor del futuro,
 un artista del alma,
 y mi persona favorita.
 
-Feliz cumpleaños Max, eres el mejor para crear el futuro y agradezco poder estar tan orgullosa de la persona que estás creando contigo mismo, te amo siempre, tripulante de las más increíbles aventuras y copiloto de mi corazón.</p>
+Feliz cumpleaños Max, eres el mejor para crear el futuro y agradezco poder estar tan cerca de la persona que estás creando contigo mismo.
+Te amo siempre, copiloto de mi corazón.</p>
       </div>
     </div>
   </div>
 
   <!-- Audios -->
   <audio id="vozAudio">
-    <source src="voz.mp4" type="audio/mpeg">
+    <source src="voz.mp4" type="audio/mp4">
     Tu navegador no soporta audio.
   </audio>
 
@@ -202,15 +212,32 @@ Feliz cumpleaños Max, eres el mejor para crear el futuro y agradezco poder esta
       musica.play();
     }
 
-    // Sparkles generator
+    // Sparkles interactivos
     const sparkleContainer = document.getElementById("sparkle-container");
+    const sparkles = [];
+
     for (let i = 0; i < 120; i++) {
       const sparkle = document.createElement("div");
       sparkle.className = "sparkle";
       sparkle.style.top = Math.random() * 100 + "vh";
       sparkle.style.left = Math.random() * 100 + "vw";
       sparkleContainer.appendChild(sparkle);
+      sparkles.push(sparkle);
     }
+
+    document.addEventListener("mousemove", e => {
+      sparkles.forEach(sparkle => {
+        const rect = sparkle.getBoundingClientRect();
+        const dx = e.clientX - (rect.left + 1);
+        const dy = e.clientY - (rect.top + 1);
+        const distance = Math.sqrt(dx * dx + dy * dy);
+        if (distance < 30) {
+          sparkle.classList.add("red");
+        } else {
+          sparkle.classList.remove("red");
+        }
+      });
+    });
   </script>
 </body>
 </html>
