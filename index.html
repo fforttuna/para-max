@@ -55,66 +55,6 @@
       100% { opacity: 0.2; transform: scale(1); }
     }
 
-    #shooting-stars {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    .shooting-star {
-      position: absolute;
-      width: 2px;
-      height: 80px;
-      background: linear-gradient(0deg, transparent, white);
-      opacity: 0;
-      transform: rotate(45deg);
-      animation: shoot linear infinite;
-    }
-
-    @keyframes shoot {
-      0% {
-        transform: translate(100vw, -100vh) rotate(45deg);
-        opacity: 0;
-      }
-      10% { opacity: 0.2; }
-      30% { opacity: 0.4; }
-      50% { opacity: 0.2; }
-      100% {
-        transform: translate(-10vw, 110vh) rotate(45deg);
-        opacity: 0;
-      }
-    }
-
-    .constelacion {
-      position: absolute;
-      top: 25%;
-      left: 50%;
-      width: 120px;
-      height: 100px;
-      transform: translateX(-50%);
-      opacity: 0.06;
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    .constelacion span {
-      position: absolute;
-      width: 3px;
-      height: 3px;
-      background: white;
-      border-radius: 50%;
-    }
-
-    .c1 { top: 0%; left: 50%; }
-    .c2 { top: 20%; left: 70%; }
-    .c3 { top: 40%; left: 50%; }
-    .c4 { top: 20%; left: 30%; }
-    .c5 { top: 0%; left: 50%; }
-
     .flip-card {
       width: 360px;
       height: 540px;
@@ -158,6 +98,7 @@
 
     .flip-card-back {
       background-color: #1e0033;
+      color: white;
       transform: rotateY(180deg);
       font-size: 0.9rem;
       white-space: pre-wrap;
@@ -176,9 +117,6 @@
     .contenido-carta p {
       margin: 0;
       text-align: center;
-      background: linear-gradient(to bottom, white, #ffc0cb);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
     }
 
     .corazon-container, .voz-container {
@@ -211,34 +149,26 @@
     .corazon-btn, .voz-btn {
       background: transparent;
       border: none;
+      font-size: 28px;
+      color: #ff3333;
       cursor: pointer;
       animation: heartbeat 1.5s infinite;
+      transition: transform 0.2s ease;
       padding: 0;
-    }
-
-    .corazon-btn svg, .voz-btn svg {
-      width: 32px;
-      height: 32px;
-      fill: #ff3333;
     }
 
     @keyframes heartbeat {
       0%, 100% { transform: scale(1); }
       50% { transform: scale(1.2); }
     }
+
+    .corazon-btn:hover, .voz-btn:hover {
+      transform: scale(1.3);
+    }
   </style>
 </head>
 <body>
   <div id="sparkle-container"></div>
-  <div id="shooting-stars"></div>
-
-  <div class="constelacion">
-    <span class="c1"></span>
-    <span class="c2"></span>
-    <span class="c3"></span>
-    <span class="c4"></span>
-    <span class="c5"></span>
-  </div>
 
   <div class="flip-card">
     <div class="flip-card-inner">
@@ -263,8 +193,7 @@ un inventor del futuro,
 un artista del alma,
 y mi persona favorita.
 
-Feliz cumpleaños Max, eres el mejor para crear el futuro y agradezco poder estar tan cerca de la persona que estás creando contigo mismo.
-Te amo siempre.</p>
+Feliz cumpleaños Max, eres el mejor para crear el futuro y agradezco poder estar tan orgullosa de la persona que estás creando contigo mismo, te amo siempre, tripulante de las más increíbles aventuras y copiloto de mi corazón.</p>
         </div>
       </div>
     </div>
@@ -281,27 +210,15 @@ Te amo siempre.</p>
   <!-- Botones -->
   <div class="voz-container">
     <div class="voz-text">haz click<br>primero aquí</div>
-    <button class="voz-btn" onclick="activarVoz()">
-      <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 
-      2 5.42 4.42 3 7.5 3c1.74 0 3.41 0.81 4.5 2.09
-      C13.09 3.81 14.76 3 16.5 3
-      19.58 3 22 5.42 22 8.5c0 3.78-3.4 
-      6.86-8.55 11.54L12 21.35z"/></svg>
-    </button>
+    <button class="voz-btn" onclick="activarVoz()">♥</button>
   </div>
 
   <div class="corazon-container">
     <div class="corazon-text">y después<br>aquí</div>
-    <button class="corazon-btn" onclick="activarMusica()">
-      <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 
-      2 5.42 4.42 3 7.5 3c1.74 0 3.41 0.81 4.5 2.09
-      C13.09 3.81 14.76 3 16.5 3
-      19.58 3 22 5.42 22 8.5c0 3.78-3.4 
-      6.86-8.55 11.54L12 21.35z"/></svg>
-    </button>
+    <button class="corazon-btn" onclick="activarMusica()">♥</button>
   </div>
 
-  <!-- Scripts -->
+  <!-- Script -->
   <script>
     function activarVoz() {
       document.getElementById("vozAudio").play();
@@ -325,12 +242,6 @@ Te amo siempre.</p>
     }
 
     document.addEventListener("mousemove", e => {
-      // efecto parallax
-      const x = (e.clientX / window.innerWidth - 0.5) * 10;
-      const y = (e.clientY / window.innerHeight - 0.5) * 10;
-      document.querySelector(".flip-card-inner").style.transform = `rotateY(${x}deg) rotateX(${-y}deg)`;
-
-      // corazones interactivos
       sparkles.forEach(sparkle => {
         const rect = sparkle.getBoundingClientRect();
         const dx = e.clientX - (rect.left + 1);
@@ -346,18 +257,6 @@ Te amo siempre.</p>
         }
       });
     });
-
-    // estrellas fugaces
-    const starsContainer = document.getElementById("shooting-stars");
-    for (let i = 0; i < 5; i++) {
-      const star = document.createElement("div");
-      star.className = "shooting-star";
-      star.style.top = Math.random() * 100 + "vh";
-      star.style.left = Math.random() * 100 + "vw";
-      star.style.animationDuration = (3 + Math.random() * 2) + "s";
-      star.style.animationDelay = (Math.random() * 10) + "s";
-      starsContainer.appendChild(star);
-    }
   </script>
 </body>
 </html>
